@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List - Мой проект</title>
-    <!-- Подключаем наш файл стилей -->
+    <!-- Подключаем файл стилей -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,16 +20,15 @@
             <button onclick="addTask()">Добавить</button>
         </div>
 
-        <!-- Здесь будет выводиться наш список дел -->
+        <!-- Выводиться  список дел -->
         <ul id="list-container">
         </ul>
-        <!-- Блок статистики: показывает текущее состояние списка (авторская доработка) -->
+        <!-- Блок статистики -->
 <div class="stats">
             <p>Всего задач: <span id="total-count">0</span></p>
             <p>Выполнено: <span id="completed-count">0</span></p>
         </div>
 
-        <!-- Информация об улучшениях (вставляем сюда) -->
         <div class="author-notes" style="margin-top: 20px; font-size: 12px; color: #888; border-top: 1px dashed #ddd; padding-top: 10px; text-align: center;">
             <strong>Доработки:</strong> Можно добавить задачу с помощью Enter, перенос текста, XSS-защита, счётчики задач и анимация добавления задачи.
         </div>

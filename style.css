@@ -64,7 +64,7 @@ button {
     border: none;
     outline: none;
     padding: 16px 50px;
-    background: #ff5945; /* Оранжево-красный цвет из видео */
+    background: #ff5945; 
     color: #fff;
     font-size: 16px;
     cursor: pointer;
@@ -151,7 +151,7 @@ ul li span:hover {
     color: #ff5945;
 }
 
-/* АНИМАЦИЯ: Плавное появление новой задачи (авторская доработка) */
+/* Плавное появление новой задачи */
 ul li {
     /* Название анимации, длительность, тип сглаживания и сохранение финального состояния */
     animation: fadeIn 0.4s ease forwards;

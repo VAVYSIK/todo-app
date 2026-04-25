@@ -1,8 +1,8 @@
-// 1. Находим в документе поле ввода и список, чтобы работать с ними
+// Находим в документе поле ввода и список, чтобы работать с ними
 const inputBox = document.getElementById("input-box");
 const listContainer = document.getElementById("list-container");
 
-// 2. Функция, которая срабатывает при нажатии на кнопку "Добавить"
+// Добавить
 function addTask() {
     if (inputBox.value === '') {
         // Если поле пустое, выводим предупреждение
@@ -44,7 +44,7 @@ listContainer.addEventListener("click", function(e) {
     }
 }, false);
 
-// Функция для сохранения данных в память браузера
+// Сохранение
 function saveData() {
     localStorage.setItem("data", listContainer.innerHTML);
 }
