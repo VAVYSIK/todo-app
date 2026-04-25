@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List - Мой проект</title>
+    <!-- Подключаем наш файл стилей -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="todo-app">
+        <h2>Список задач <img src="https://cdn-icons-png.flaticon.com/512/4697/4697260.png" width="30px"></h2>
+        
+        <div class="row">
+            <!-- Поле для ввода текста -->
+            <input type="text" id="input-box" placeholder="Что нужно сделать?">
+            <!-- Кнопка добавления -->
+            <button onclick="addTask()">Добавить</button>
+        </div>
+
+        <!-- Здесь будет выводиться наш список дел -->
+        <ul id="list-container">
+        </ul>
+        <!-- Блок статистики: показывает текущее состояние списка (авторская доработка) -->
+<div class="stats">
+    <!-- Счётчик всех добавленных дел -->
+    <p>Всего задач: <span id="total-count">0</span></p>
+    <!-- Счётчик только тех дел, которые зачеркнуты -->
+    <p>Выполнено: <span id="completed-count">0</span></p>
+</div>
+    </div>
+</div>
+
+<!-- Подключаем наш файл логики JS в самом конце body -->
+<script src="script.js"></script>
+</body>
+</html>
