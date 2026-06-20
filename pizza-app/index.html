@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нео-Пицца | Конструктор и заказ</title>
+    <!-- Подключаем шрифты и иконки для красивого дизайна -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. ШАПКА САЙТА (HEADER) — общая для всех экранов -->
+    <header class="header">
+        <div class="header-container">
+            <!-- Логотип пиццерии -->
+            <div class="logo" onclick="switchView('menu')">
+                 <img src="https://cdn-icons-png.flaticon.com/512/1404/1404945.png" alt="Логотип">
+                <span>НЕО-ПИЦЦА</span>
+            </div>
+            <!-- Навигация между экранами приложения -->
+            <nav class="nav-menu">
+                <a href="#" onclick="switchView('menu')" class="nav-link active" id="nav-menu">Меню</a>
+                <a href="#" onclick="switchView('constructor')" class="nav-link" id="nav-constructor">Конструктор</a>
+                <a href="#" onclick="switchView('cart')" class="nav-link" id="nav-cart">Корзина</a>
+            </nav>
+            <!-- Индикатор корзины в углу -->
+            <div class="cart-indicator" onclick="switchView('cart')">
+                <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Корзина">
+                <span class="cart-badge" id="cart-count">0</span>
+                <span class="cart-price" id="cart-total-header">0 руб.</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ОСНОВНОЙ КОНТЕНТ (MAIN) — здесь находятся наши экраны -->
+    <main class="main-content">
+
+        <!-- ================= ЭКРАН 1: ГЛАВНОЕ МЕНЮ И АКЦИИ ================= -->
+        <section id="view-menu" class="view-section">
+            <!-- Главный баннер (Hero-секция) -->
+            <div class="hero-banner">
+                <div class="hero-text">
+                    <h1>Пицца, которую собираешь ты сам</h1>
+                    <p>Выбирай ингредиенты, соусы и размеры в нашем интерактивном конструкторе!</p>
+                    <button class="cta-button" onclick="switchView('constructor')">Собрать свою пиццу</button>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600" alt="Пицца">
+                </div>
+            </div>
+
+            <!-- Витрина готовых популярных пицц -->
+            <div class="catalog-section">
+                <h2 class="section-title">Популярные готовые варианты</h2>
+                <div class="menu-controls">
+    <!-- Кнопки фильтрации по категориям (авторская доработка) -->
+    <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">Все</button>
+        <button class="filter-btn" data-filter="hit">Хит продаж 🔥</button>
+        <button class="filter-btn" data-filter="spicy">Острые 🌶️</button>
+        <button class="filter-btn" data-filter="vegan">Веган 🍃</button>
+        <button class="filter-btn" data-filter="discount">Скидка %</button>
+    </div>
+    
+    <!-- Сортировка по цене (авторская доработка) -->
+    <div class="sort-wrapper">
+        <select id="sort-select" onchange="handleSortChange(this.value)">
+            <option value="default">Сортировка: По умолчанию</option>
+            <option value="asc">Сначала дешевые</option>
+            <option value="desc">Сначала дорогие</option>
+        </select>
+    </div>
+</div>
+                <div class="pizza-grid" id="pizza-catalog">
+                    <!-- Карточки готовых пицц будут генерироваться через JavaScript -->
+                </div>
+            </div>
+
+            <!-- Блок преимуществ нашей пиццерии -->
+     <div class="features-section">
+    
+    <!-- Карточка 1: Доставка (Мопед) -->
+    <div class="feature-card">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="60" height="60">
+            <rect x="20" y="24" width="24" height="16" rx="4" fill="#ff5945" />
+            <path d="M44 28h8v12h-8z" fill="#ff5945" />
+            <circle cx="20" cy="44" r="8" fill="#424242" />
+            <circle cx="20" cy="44" r="3" fill="#ffffff" />
+            <circle cx="44" cy="44" r="8" fill="#424242" />
+            <circle cx="44" cy="44" r="3" fill="#ffffff" />
+            <rect x="22" y="20" width="12" height="4" rx="1" fill="#424242" />
+            <line x1="48" y1="28" x2="48" y2="16" stroke="#424242" stroke-width="3" />
+            <circle cx="48" cy="16" r="3" fill="#ff5945" />
+            <rect x="8" y="18" width="10" height="12" rx="1" fill="#ffb300" />
+        </svg>
+        <h3>Доставка за 30 минут</h3>
+        <p>Если не успеем — пицца в подарок!</p>
+    </div>
+
+    <!-- Карточка 2: Свежие продукты (Томат и листик) -->
+    <div class="feature-card">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="60" height="60">
+            <path d="M38 14c-10 0-16 10-16 16s6 16 16 16 16-10 16-16-6-16-16-16zm0 28c-6.6 0-10-6.6-10-12s3.4-12 10-12 10 6.6 10 12-3.4 12-10 12z" fill="#4caf50" />
+            <circle cx="24" cy="38" r="16" fill="#ff5945" />
+            <path d="M24 22c0-3 3-5 6-5s3 2 3 5-3 5-6 5-3-2-3-5z" fill="#2e7d32" />
+        </svg>
+        <h3>Только свежие продукты</h3>
+        <p>Поставки каждое утро от лучших фермеров.</p>
+    </div>
+
+    <!-- Карточка 3: Тесто (Скалка и колосок пшеницы) -->
+    <div class="feature-card">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="60" height="60">
+            <rect x="14" y="27" width="36" height="10" rx="2" fill="#d7ccc8" />
+            <rect x="6" y="30" width="8" height="4" rx="1" fill="#8d6e63" />
+            <rect x="50" y="30" width="8" height="4" rx="1" fill="#8d6e63" />
+            <path d="M24 16c-2-2-4-2-4 0s2 4 4 4 4-2 4-4z" fill="#ffb300" />
+            <path d="M40 16c2-2 4-2 4 0s-2 4-4 4-4-2-4-4z" fill="#ffb300" />
+            <line x1="32" y1="12" x2="32" y2="40" stroke="#ffb300" stroke-width="2" />
+        </svg>
+        <h3>Итальянское тесто</h3>
+        <p>Готовим на живой закваске по старинным рецептам.</p>
+    </div>
+
+</div>
+</div>
+        </section>
+        <!-- ================= ЭКРАН 2: ИНТЕРАКТИВНЫЙ КОНСТРУКТОР ================= -->
+        <section id="view-constructor" class="view-section hidden">
+            <h2 class="section-title">Интерактивный конструктор пиццы</h2>
+            <div class="constructor-container">
+                
+                <!-- Левая панель: Интерактивный холст (превью пиццы) -->
+                <div class="pizza-canvas" id="pizza-preview">
+    <!-- Основа теста, соуса и сыра — чистый CSS -->
+    <div class="pizza-layer layer-dough"></div>
+    <div class="pizza-layer layer-sauce hidden" id="layer-sauce"></div>
+    <div class="pizza-layer layer-cheese hidden" id="layer-cheese"></div>
+    
+    <!-- Слои ингредиентов в виде разбросанных смайликов-эмодзи -->
+    <div class="pizza-layer layer-ingredients hidden" id="layer-pepperoni">
+        <span style="position:absolute; top:20%; left:30%; font-size:24px;">🥩</span>
+        <span style="position:absolute; top:25%; left:65%; font-size:24px;">🥩</span>
+        <span style="position:absolute; top:55%; left:45%; font-size:24px;">🥩</span>
+        <span style="position:absolute; top:70%; left:25%; font-size:24px;">🥩</span>
+        <span style="position:absolute; top:60%; left:65%; font-size:24px;">🥩</span>
+    </div>
+    <div class="pizza-layer layer-ingredients hidden" id="layer-mushrooms">
+ <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23c29979'><path d='M12 2C7.58 2 4 5.58 4 10c0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-4.42-3.58-8-8-8zm-2 10v9c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-9h-4z'/></svg>" style="position:absolute; top:35%; left:25%; width:24px;">
+    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23c29979'><path d='M12 2C7.58 2 4 5.58 4 10c0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-4.42-3.58-8-8-8zm-2 10v9c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-9h-4z'/></svg>" style="position:absolute; top:15%; left:50%; width:24px;">
+    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23c29979'><path d='M12 2C7.58 2 4 5.58 4 10c0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-4.42-3.58-8-8-8zm-2 10v9c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-9h-4z'/></svg>" style="position:absolute; top:45%; left:70%; width:24px;">
+    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23c29979'><path d='M12 2C7.58 2 4 5.58 4 10c0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-4.42-3.58-8-8-8zm-2 10v9c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-9h-4z'/></svg>" style="position:absolute; top:65%; left:50%; width:24px;">
+    </div>
+    <div class="pizza-layer layer-ingredients hidden" id="layer-tomatoes">
+        <span style="position:absolute; top:15%; left:35%; font-size:22px;">🍅</span>
+        <span style="position:absolute; top:40%; left:60%; font-size:22px;">🍅</span>
+        <span style="position:absolute; top:70%; left:35%; font-size:22px;">🍅</span>
+        <span style="position:absolute; top:45%; left:20%; font-size:22px;">🍅</span>
+    </div>
+    <div class="pizza-layer layer-ingredients hidden" id="layer-basil">
+        <span style="position:absolute; top:30%; left:45%; font-size:20px;">🌿</span>
+        <span style="position:absolute; top:50%; left:30%; font-size:20px;">🌿</span>
+        <span style="position:absolute; top:55%; left:55%; font-size:20px;">🌿</span>
+    </div>
+</div>
+
+                <!-- Правая панель: Панель управления ингредиентами -->
+                <div class="constructor-controls">
+                    <!-- Шаг 1: Тесто и размер -->
+                    <div class="control-group">
+                        <h3>1. Основа и размер</h3>
+                        <div class="options-row">
+                            <label class="control-label">Диаметр:</label>
+                            <div class="btn-group">
+                                <button class="size-btn active" data-size="25">25 см</button>
+                                <button class="size-btn" data-size="30">30 см</button>
+                                <button class="size-btn" data-size="35">35 см</button>
+                            </div>
+                        </div>
+                        <div class="options-row" style="margin-top: 10px;">
+                            <label class="control-label">Тесто:</label>
+                            <div class="btn-group">
+                                <button class="dough-btn active" data-dough="classic">Традиционное</button>
+                                <button class="dough-btn" data-dough="thin">Тонкое</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Шаг 2: Выбор соуса -->
+                    <div class="control-group">
+                        <h3>2. Соус</h3>
+                        <div class="options-grid">
+                            <button class="sauce-select-btn" data-sauce="tomato">Томатный</button>
+                            <button class="sauce-select-btn" data-sauce="alfredo">Альфредо (белый)</button>
+                            <button class="sauce-select-btn" data-sauce="barbecue">Барбекю</button>
+                        </div>
+                    </div>
+
+                    <!-- Шаг 3: Начинка -->
+                    <div class="control-group">
+                        <h3>3. Добавить ингредиенты</h3>
+                        <div class="ingredients-grid">
+                            <button class="ingredient-toggle-btn" data-ingredient="cheese">Сыр Моцарелла (+3 руб.)</button>
+<button class="ingredient-toggle-btn" data-ingredient="pepperoni">Колбаски Пепперони (+4 руб.)</button>
+<button class="ingredient-toggle-btn" data-ingredient="mushrooms">Шампиньоны (+3 руб.)</button>
+<button class="ingredient-toggle-btn" data-ingredient="tomatoes">Томаты Черри (+2 руб.)</button>
+<button class="ingredient-toggle-btn" data-ingredient="basil">Базилик свежий (+1.5 руб.)</button>
+                        </div>
+                    </div>
+
+                    <!-- Интерактивная плашка с ценой и весом -->
+                    <div class="price-bar">
+                        <div class="price-info">
+                            <span class="weight-display" id="pizza-weight">Вес: 350 г</span>
+                            <span class="price-display" id="pizza-price">Цена: 10  руб.</span>
+                        </div>
+                        <button class="add-to-cart-cta" onclick="addCustomPizzaToCart()">Добавить шедевр в корзину</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= ЭКРАН 3: КОРЗИНА И ОФОРМЛЕНИЕ ЗАКАЗА ================= -->
+        <section id="view-cart" class="view-section hidden">
+            <h2 class="section-title">Оформление заказа</h2>
+            <div class="cart-container">
+                
+                <!-- Левая сторона: Список покупок -->
+                <div class="cart-items-wrapper">
+                    <h3>Выбранные пиццы</h3>
+                    <div class="cart-items-list" id="cart-items-container">
+                        <!-- Сюда JavaScript будет подставлять пиццы из корзины -->
+                    </div>
+                    <div class="cart-summary-line">
+                        <span>Итого к оплате:</span>
+                        <span id="cart-total-price">0 руб.</span>
+                    </div>
+                </div>
+
+                <!-- Правая сторона: Форма оформления доставки -->
+                <div class="checkout-form-wrapper">
+                    <h3>Данные для доставки</h3>
+                    <form id="checkout-form" onsubmit="handleCheckout(event)">
+                        <div class="form-group">
+                            <label for="user-name">Ваше имя:</label>
+                            <input type="text" id="user-name" required placeholder="Иван">
+                        </div>
+                        <div class="form-group">
+                            <label for="user-phone">Телефон:</label>
+                           <input type="tel" id="user-phone" required placeholder="+375 (__) ___-__-__">
+                        </div>
+                        <div class="form-group">
+                            <label for="user-address">Адрес доставки:</label>
+                            <input type="text" id="user-address" required placeholder="Улица, дом, квартира">
+                        </div>
+                        <div class="form-group">
+                            <label>Способ оплаты:</label>
+                            <select id="payment-method">
+                                <option value="card">Картой на сайте</option>
+                                <option value="cash">Наличными курьеру</option>
+                                <option value="qr">По QR-коду</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="submit-order-btn">Подтвердить заказ</button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- СТИЛЬНОЕ ОКНО УСПЕХА (MODAL) — всплывает при подтверждении заказа -->
+    <div class="success-modal hidden" id="order-success-modal">
+        <div class="modal-content">
+           <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='70' height='70'><circle cx='256' cy='256' r='256' fill='%234caf50'/><path d='M120 270l80 80 190-190' fill='none' stroke='%23ffffff' stroke-width='40' stroke-linecap='round' stroke-linejoin='round'/></svg>" alt="Успех" class="modal-icon">
+            <h2>Заказ успешно оформлен! 🎉</h2>
+            <p>Номер вашего заказа: <strong id="order-id">#1204</strong></p>
+            <p>Курьер уже мчится к вам. Примерное время ожидания: <strong>30 минут</strong>.</p>
+            <div class="courier-animation">
+                <img src="https://cdn-icons-png.flaticon.com/512/2972/2972185.png" alt="Курьер" class="courier-bike">
+            </div>
+            <button class="close-modal-btn" onclick="closeSuccessModal()">Отлично!</button>
+        </div>
+    </div>
+
+    <!-- Подключаем логику скрипта -->
+    <script src="script.js"></script>
+</body>
+</html>
